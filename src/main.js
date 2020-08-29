@@ -1,5 +1,3 @@
-import cepComponent from './CepComponent'
+import cepComponent from "./CepComponent";
 
-
-cepComponent('app')
-
+cepComponent("app");

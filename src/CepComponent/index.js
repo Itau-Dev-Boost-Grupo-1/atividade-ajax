@@ -1,18 +1,34 @@
-import RenderAddress from './RenderAddress'
-import GetAddress from './GetAddress'
-import CreateForm from './CreateForm'
+import RenderAddress from "./RenderAddress";
+import GetAddress from "./GetAddress";
+import CreateForm from "./CreateForm";
 
+export default function cepComponent(id) {
+  const container = document.getElementById(id);
 
-function cepComponent(id){
+  /**
+   * Render form
+   */
 
-    let addressData = GetAddress(cep)
+  const formComponent = CreateForm();
+  container.appendChild(formComponent);
 
-    let renderedAddress =  RenderAddress(addressData)
+  /**
+   * Submit form
+   */
 
-    let container = document.getElementById(id)
+  formComponent.onsubmit = function (e) {
+    e.preventDefault();
 
-    container.appendChild(renderedAddress)
+    const inputValue = formComponent.elements[0].value;
+
+    async function handleGetAddress() {
+      const addressData = await GetAddress(inputValue);
+
+      let renderedAddress = RenderAddress(addressData);
+
+      container.appendChild(renderedAddress);
+    }
+
+    handleGetAddress();
+  };
 }
-
-
-
