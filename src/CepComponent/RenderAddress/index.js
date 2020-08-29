@@ -21,6 +21,15 @@ export default function renderAddress(addressData = {}) {
     return addressContainer;
   }
 
+  if (Object.keys(addressData).length === 0) {
+    console.info("CEP not found!")
+
+    let message = createErrorMessage("CEP não encontrado!")
+    addressContainer.appendChild(message)
+
+    return addressContainer
+  }
+
   for (const dataName in addressData) {
     const data = addressData[dataName];
     const dataField = createDataField(data, dataName);
@@ -53,4 +62,17 @@ function createDataField(data = "", label = "") {
   }
 
   return dataFieldContainer;
+}
+
+function createErrorMessage(message) {
+  let errorContainer = document.createElement("div")
+  errorContainer.setAttribute("class", "search-error-message")
+
+  let messageBody = document.createElement("p")
+  messageBody.setAttribute("class", "message-body")
+  messageBody.appendChild(document.createTextNode(message))
+
+  errorContainer.appendChild(messageBody)
+
+  return errorContainer
 }

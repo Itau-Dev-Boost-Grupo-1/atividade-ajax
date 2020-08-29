@@ -12,6 +12,9 @@ export default function cepComponent(id) {
   const formComponent = CreateForm();
   container.appendChild(formComponent);
 
+  const display = document.createElement("div")
+  container.appendChild(display)
+
   /**
    * Submit form
    */
@@ -22,11 +25,22 @@ export default function cepComponent(id) {
     const inputValue = formComponent.elements[0].value;
 
     async function handleGetAddress() {
-      const addressData = await GetAddress(inputValue);
+        let addressData = {}
 
-      let renderedAddress = RenderAddress(addressData);
+        try {
 
-      container.appendChild(renderedAddress);
+            display.innerHTML = ""
+            addressData = await GetAddress(inputValue);
+
+        } catch (error) {
+
+           console.error("Houve um erro")
+        } finally {
+
+          let renderedAddress = RenderAddress(addressData);
+          display.appendChild(renderedAddress);
+        }
+
     }
 
     handleGetAddress();
