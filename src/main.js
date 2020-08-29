@@ -1,3 +1,5 @@
-import axios from 'axios'
+import cepComponent from './CepComponent'
 
+
+cepComponent('app')
 
